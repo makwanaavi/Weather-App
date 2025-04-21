@@ -1,7 +1,7 @@
-const WEATHER_API_KEY = "31a64aa1ae086a8cd4a993c8f160d77b"; // Your OpenWeatherMap API Key
+const WEATHER_API_KEY = "31a64aa1ae086a8cd4a993c8f160d77b";
 
 function fetchWeatherDetails() {
-  const cityInput = document.getElementById("cityInput").value.trim(); 
+  const cityInput = document.getElementById("cityInput").value.trim();
 
   if (!cityInput) {
     alert("Please enter a city name to get the weather info.");
@@ -16,17 +16,14 @@ function fetchWeatherDetails() {
       if (weather.cod === "404") {
         document.getElementById("weatherResult").innerHTML =
           "<p>City not found! Try again.</p>";
-        return; 
+        return;
       }
 
-      const {
-        name,
-        main: { temp },
-        weather: [{ description, icon }],
-        wind: { speed },
-        coord: { lat, lon },
-      } = weather;
-
+      const name = weather.name;
+      const temp = weather.main.temp;
+      const description = weather.description;
+      const speed = weather.wind.speed;
+      const { lat, lon } = weather.coord;
 
       const resultHTML = `
         <div class="weather-card">
@@ -45,6 +42,6 @@ function fetchWeatherDetails() {
     .catch((err) => {
       console.error(" Error fetching weather:", err);
       document.getElementById("weatherResult").innerHTML =
-        "<p>⚠️ Something went wrong. Please try again later.</p>";
+        "<p>Something went wrong. Please try again later.</p>";
     });
 }
